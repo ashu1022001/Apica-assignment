@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getArticles } from "../api/api";
-import { Col, Row, message } from "antd";
+import { Col, Row, Spin, message } from "antd";
 import { Pie } from "@ant-design/plots";
 import { useAnalytics } from "./useAnalytics";
 import GraphCard from "./GraphCard";
@@ -40,32 +40,35 @@ const Analytics = () => {
   };
 
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={12}>
-        <GraphCard
-          title={"Finance with total amount"}
-          config={{ ...getPieConfig(data, "value") }}
-        />
-      </Col>
-      <Col span={12}>
-        <GraphCard
-          title={"Finance with total number of accounts"}
-          config={{ ...getPieConfig(data, "count") }}
-        />
-      </Col>
-      <Col span={12}>
-        <GraphCard
-          title={"Cards with total amount"}
-          config={{ ...getPieConfig(cardData, "value") }}
-        />
-      </Col>
-      <Col span={12}>
-        <GraphCard
-          title={"Cards with total number of accounts"}
-          config={{ ...getPieConfig(cardData, "count") }}
-        />
-      </Col>
-    </Row>
+    <Spin spinning={isLoading}>
+      <div className="page-header">Analytics</div>
+      <Row gutter={[16, 16]}>
+        <Col span={12}>
+          <GraphCard
+            title={"Finance with total amount"}
+            config={{ ...getPieConfig(data, "value") }}
+          />
+        </Col>
+        <Col span={12}>
+          <GraphCard
+            title={"Finance with total number of accounts"}
+            config={{ ...getPieConfig(data, "count") }}
+          />
+        </Col>
+        <Col span={12}>
+          <GraphCard
+            title={"Cards with total amount"}
+            config={{ ...getPieConfig(cardData, "value") }}
+          />
+        </Col>
+        <Col span={12}>
+          <GraphCard
+            title={"Cards with total number of accounts"}
+            config={{ ...getPieConfig(cardData, "count") }}
+          />
+        </Col>
+      </Row>
+    </Spin>
   );
 };
 
